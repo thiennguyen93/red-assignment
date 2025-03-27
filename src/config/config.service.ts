@@ -52,6 +52,7 @@ export class ApiConfigService {
       migrations: [__dirname + '/database/migrations/*{.ts,.js}'],
       entities: [__dirname + '/../**/*.entity.{js,ts}'],
       namingStrategy: new SnakeNamingStrategy(),
+      synchronize: false,
     };
   }
 

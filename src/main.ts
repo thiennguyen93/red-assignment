@@ -8,6 +8,9 @@ async function bootstrap() {
   // Create the app
   const app = await NestFactory.create(AppModule);
 
+  // Global prefix
+  app.setGlobalPrefix('api/v1');
+
   // Swagger
   const config = new DocumentBuilder()
     .setTitle('RED API')

@@ -8,18 +8,24 @@ import { ApiConfigModule } from './config/config.module';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { CommonModule } from './common/common.module';
+import { ProductModule } from './product/product.module';
+import { CategoryModule } from './category/category.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
     TypeOrmModule.forRootAsync({
       imports: [ApiConfigModule],
-      useFactory: (configService: ApiConfigService) => configService.dbConfig,
+      useFactory: (configService: ApiConfigService) => {
+        return configService.dbConfig;
+      },
       inject: [ApiConfigService],
     }),
     AuthModule,
     UserModule,
     CommonModule,
+    ProductModule,
+    CategoryModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -8,8 +8,8 @@ import { CurrentUser } from './auth.decorator';
 import { RegisterRequestDTO } from './dto/register-request.dto';
 import { JwtAuthGuard } from './jwt-guard';
 
-@Controller('api/auth')
-@ApiTags('authentication')
+@Controller('auth')
+@ApiTags('Authentication')
 export class AuthController {
   constructor(
     private readonly authService: AuthService,

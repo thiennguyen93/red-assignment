@@ -1,6 +1,6 @@
 import { PickType } from '@nestjs/swagger';
 import { Type } from '@nestjs/common';
-import { Hash } from 'src/utils/hash';
+import { Hash } from '../utils/hash';
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity({
@@ -10,10 +10,10 @@ export class User {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ length: 255 })
+  @Column({ length: 255, name: 'first_name' })
   firstName: string;
 
-  @Column({ length: 255 })
+  @Column({ length: 255, name: 'last_name' })
   lastName: string;
 
   @Column({ length: 255 })
@@ -31,7 +31,7 @@ export class User {
 
   toJSON() {
     const { ...self } = this;
-    return { ...self, password: undefined };
+    return { ...self, password: undefined, passwordConfirmation: undefined };
   }
 }
 export class UserFillableFields extends PickType(User as Type<User>, [
