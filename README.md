@@ -18,8 +18,10 @@ $ cd red-assignment
 To set up the backend, ensure you have Docker Compose installed. Then, run the following command:
 
 ```bash
-$ docker compose up
+$ docker compose up --force-recreate
 ```
+
+> **Note:** The `--force-recreate` flag is optional and should only be used if you want to create a fresh version of the containers.
 
 This will automatically set up everything, including MySQL, MinIO, and the NestJS application. The services will run on the following ports:
 
