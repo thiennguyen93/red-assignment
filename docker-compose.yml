@@ -67,17 +67,6 @@ services:
       - "3000:3000"
     networks:
       - mynetwork
-  frontend_app:
-    build:
-      context: .
-      dockerfile: Dockerfile.frontend
-    container_name: frontend_app
-    working_dir: /app
-    ports:
-      - "5173:5173"
-    networks:
-      - mynetwork
-
 volumes:
   mysql_data:
 
