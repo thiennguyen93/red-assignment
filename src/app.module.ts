@@ -10,6 +10,8 @@ import { UserModule } from './user/user.module';
 import { CommonModule } from './common/common.module';
 import { ProductModule } from './product/product.module';
 import { CategoryModule } from './category/category.module';
+import { MinioClientModule } from './minio-client/minio-client.module';
+import { FileUploadModule } from './file-upload/file-upload.module';
 
 @Module({
   imports: [
@@ -26,6 +28,8 @@ import { CategoryModule } from './category/category.module';
     CommonModule,
     ProductModule,
     CategoryModule,
+    MinioClientModule,
+    FileUploadModule,
   ],
   controllers: [AppController],
   providers: [AppService],

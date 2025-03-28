@@ -1,0 +1,15 @@
+FROM node:16
+
+WORKDIR /app
+
+# Clone the frontend repository
+RUN git clone https://github.com/thiennguyen93/red-assignement-fe.git .
+
+# Install dependencies
+RUN npm install
+
+# Expose the port
+EXPOSE 5173
+
+# Start the frontend app
+CMD ["npm", "start"]

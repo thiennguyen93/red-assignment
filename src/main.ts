@@ -3,10 +3,11 @@ import { AppModule } from './app.module';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
 import { useContainer } from 'class-validator';
+import { NestExpressApplication } from '@nestjs/platform-express';
 
 async function bootstrap() {
   // Create the app
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
   // Global prefix
   app.setGlobalPrefix('api/v1');
@@ -40,6 +41,8 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe());
 
   useContainer(app.select(AppModule), { fallbackOnErrors: true });
+
+  app.set('query parser', 'extended');
 
   // Start
   await app.listen(process.env.PORT ?? 3000);

@@ -17,7 +17,26 @@ services:
       interval: 5s
       retries: 5
       start_period: 10s
-
+  minio:
+    image: minio/minio
+    container_name: minio-container
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - mysql_data:/data
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+      MINIO_DEFAULT_BUCKETS: red-bucket
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+    command: server --console-address ":9001" /data
+    networks:
+      - mynetwork
   app:
     build:
       context: .
@@ -33,11 +52,29 @@ services:
       JWT_SECRET_KEY: HHGk6D8K_Y6TaWuIK6HHdw
       JWT_EXPIRATION_TIME: 2h
       NODE_ENV: production
+      MINIO_ENDPOINT: minio
+      MINIO_PORT: 9000
+      MINIO_ACCESS_KEY: minioadmin
+      MINIO_SECRET_KEY: minioadmin
+      MINIO_BUCKET_NAME: red-bucket
+      MINIO_SECURE: false
     depends_on:
       mysql:
         condition: service_healthy
+      minio:
+        condition: service_healthy
     ports:
       - "3000:3000"
+    networks:
+      - mynetwork
+  frontend_app:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    container_name: frontend_app
+    working_dir: /app
+    ports:
+      - "5173:5173"
     networks:
       - mynetwork
 

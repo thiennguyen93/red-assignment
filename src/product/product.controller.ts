@@ -1,8 +1,9 @@
-import { Controller } from '@nestjs/common';
+import { Controller, UseGuards } from '@nestjs/common';
 import { ProductService } from './product.service';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { Crud } from '@dataui/crud';
 import { Product } from './product.entity';
+import { JwtAuthGuard } from 'src/auth/jwt-guard';
 
 @Controller('product')
 @ApiTags('Product')
@@ -29,6 +30,8 @@ import { Product } from './product.entity';
     },
   },
 })
+@ApiBearerAuth('JWT-auth')
+@UseGuards(JwtAuthGuard)
 export class ProductController {
   constructor(public service: ProductService) {}
 }

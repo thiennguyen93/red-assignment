@@ -1,5 +1,5 @@
 import { ApiProperty } from '@dataui/crud/lib/crud';
-import { IsNumber } from 'class-validator';
+import { IsNumber, IsOptional } from 'class-validator';
 import { Category } from 'src/category/category.entity';
 import {
   Entity,
@@ -50,6 +50,14 @@ export class Product {
 
   @IsNumber()
   @ApiProperty()
-  @Column({ name: 'category_id' })
-  categoryId: number;
+  @Column({ name: 'category_id', nullable: true })
+  @IsOptional()
+  categoryId?: number;
+
+  @Column({
+    name: 'file_name',
+    nullable: true,
+  })
+  @ApiProperty()
+  fileName: string;
 }

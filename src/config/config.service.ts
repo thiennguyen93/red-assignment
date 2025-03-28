@@ -5,6 +5,7 @@ import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 
 @Injectable()
 export class ApiConfigService {
+  minioConfig: any;
   constructor(private configService: ConfigService) {}
 
   get isDevelopment(): boolean {
@@ -59,6 +60,16 @@ export class ApiConfigService {
   get appConfig() {
     return {
       port: this.getString('PORT'),
+    };
+  }
+
+  get minio() {
+    return {
+      endPoint: this.getString('MINIO_ENDPOINT'),
+      port: +this.getString('MINIO_PORT'),
+      accessKey: this.getString('MINIO_ACCESS_KEY'),
+      secretKey: this.getString('MINIO_SECRET_KEY'),
+      useSSL: false,
     };
   }
 
